@@ -13,8 +13,8 @@ namespace VideoBuilder
             VideoBuilder builder = new VideoBuilder();
             builder = builder.AddPicture(new Picture( "C:\\Users\\Java\\Pictures\\Unbenannt2.PNG", 5000));
             builder =  builder.AddPicture(new Picture("C:\\Users\\Java\\Pictures\\Unbenannt.PNG", 2000));
-            builder = builder.Height(800);
-            builder = builder.Width(800);
+            builder = builder.AddMusic(new Music("C:\\Users\\Java\\Dropbox\\Musik-Uploads\\Icona Pop - All Night (Official Video Edit).mp3"));
+            builder = builder.Height(800).Width(800);
             builder.Build("result.wmv");
         }
     }

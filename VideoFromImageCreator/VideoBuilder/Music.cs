@@ -8,6 +8,11 @@ namespace VideoBuilder
 {
     class Music
     {
+        public Music(String path)
+        {
+            this.Path = path;
+        }
+
         public String Path { get; set; }
     }
 }
