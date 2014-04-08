@@ -23,9 +23,7 @@ namespace VideoFromImageCreator
     {
         public MainWindow()
         {
-            InitializeComponent();
-            new VideoBuilder().addMusic(new Music()).build("");
-
+            InitializeComponent();          
         }
            
     }

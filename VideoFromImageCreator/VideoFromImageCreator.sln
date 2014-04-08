@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoFromImageCreator", "VideoFromImageCreator\VideoFromImageCreator.csproj", "{F90560C6-90F0-4713-A282-896A25361A99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoBuilder", "VideoBuilder\VideoBuilder.csproj", "{BC7558E9-F130-487C-88FD-B3C601C63D36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F90560C6-90F0-4713-A282-896A25361A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F90560C6-90F0-4713-A282-896A25361A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F90560C6-90F0-4713-A282-896A25361A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC7558E9-F130-487C-88FD-B3C601C63D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC7558E9-F130-487C-88FD-B3C601C63D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC7558E9-F130-487C-88FD-B3C601C63D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC7558E9-F130-487C-88FD-B3C601C63D36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
