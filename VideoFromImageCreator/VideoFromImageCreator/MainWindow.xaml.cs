@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BytescoutImageToVideo;
+using BytescoutImageToVideoLib;
 
 namespace VideoFromImageCreator
 {
@@ -38,7 +38,7 @@ namespace VideoFromImageCreator
             slide = converter.AddImageFromFileName("D:\\recovery\\Artworks\\1960.jpg");
             slide.Duration = 3000; // 3000ms = 3s
             slide = converter.AddImageFromFileName("D:\\recovery\\Artworks\\header668.jpg");
-            
+
             slide.Duration = 3000;
 
             // Set output video size

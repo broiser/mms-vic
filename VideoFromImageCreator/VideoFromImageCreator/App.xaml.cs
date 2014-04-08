@@ -13,5 +13,6 @@ namespace VideoFromImageCreator
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
