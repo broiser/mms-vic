@@ -23,10 +23,19 @@ namespace VideoFromImageCreator
     {
         public MainWindow()
         {
+
             InitializeComponent();
-            new VideoBuilder().addMusic(new Music()).build("");
+
+            
+        //    this.Visibility = System.Windows.Visibility.Visible;
+         
+            }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ImageToVideo im = new ImageToVideo();
 
         }
-           
+
     }
 }
