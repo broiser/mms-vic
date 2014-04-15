@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace VideoBuilder
 {
-    class Music : Resource
+    class Resource
     {
-        public Music(String path) :base(path)
+        public Resource(String path)
         {
-           
+            this.Path = path;
         }
+
+        public String Path { get; set; }
     }
 }
