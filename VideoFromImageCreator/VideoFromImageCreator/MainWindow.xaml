@@ -30,7 +30,7 @@
         <Button Content="Move Up" HorizontalAlignment="Left" Margin="345,183,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="MoveUp_Click"/>
         <Button Content="Move Down" HorizontalAlignment="Left" Margin="345,210,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="MoveDown_Click"/>
         <Button Content="Set Duration" HorizontalAlignment="Left" Margin="345,237,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="SetDuration_Click"/>
-        <Button Content="Generate Video" HorizontalAlignment="Left" Margin="260,459,0,0" Grid.Row="1" VerticalAlignment="Top" Width="145" Height="35"/>
+        <Button Content="Generate Video" HorizontalAlignment="Left" Margin="260,459,0,0" Grid.Row="1" VerticalAlignment="Top" Width="145" Height="35" Click="GenerateVideo_Click"/>
         <Button Content="Add Music" HorizontalAlignment="Left" Margin="345,264,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddMusic_Click"/>
         <Label Content="Pictures" HorizontalAlignment="Left" Margin="44,43,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.192"/>
 

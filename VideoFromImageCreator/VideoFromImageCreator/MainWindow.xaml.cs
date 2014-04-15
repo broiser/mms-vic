@@ -68,6 +68,12 @@ namespace VideoFromImageCreator
         private void AddMusic_Click(object sender, RoutedEventArgs e)
         {
             //TODO
+            //Voerst mal nur 1 Titel hinzufügen und dann je nach Möglichkeiten der Bibliothek eine Liste/DataGrid aufbauen und wie bei den Pictures machen...
+        }
+
+        private void GenerateVideo_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
 
     }
