@@ -13,13 +13,20 @@ namespace VideoBuilder
     {
         private ImageToVideo imageToVideo = new ImageToVideo();
 
+        public VideoBuilder SlideConfiguration(SlideConfiguration configuration)
+        {
+            imageToVideo.Slides.DefaultSlideDuration = configuration.Duration;
+            return this;
+        }
+
         public VideoBuilder RegistraitionName(String name)
         {
             imageToVideo.RegistrationName = name;
             return this;
         }
 
-        public VideoBuilder RegistrationKey(String key){
+        public VideoBuilder RegistrationKey(String key)
+        {
             imageToVideo.RegistrationKey = key;
             return this;
         }
@@ -34,18 +41,15 @@ namespace VideoBuilder
             return this;
         }
 
-        public VideoBuilder AddPictureFromFolder(String path){
-            imageToVideo.AddAllImagesFromFolder(path, true);
-            return this;
-        }
-
         public VideoBuilder AddPicture(Picture picture){
             Slide slide = imageToVideo.AddImageFromFileName(picture.Path);
-            slide.Duration = picture.Duration;
+            slide.Duration = picture.Duration * 1000;
+            slide.Effect = picture.SlideEffect;
+            slide.PanZoomEffect = picture.ZoomEffect;
             return this;
         }
 
-        public VideoBuilder AddMusic(Music music){
+        public VideoBuilder Music(Music music){
             imageToVideo.ExternalAudioTrackFromFileName = music.Path;
             return this;
         }
@@ -53,6 +57,7 @@ namespace VideoBuilder
         public void Build(String path){
             imageToVideo.OutputVideoFileName = path;
             imageToVideo.RunAndWait();
-        }   
+        }
+       
     }
 }
