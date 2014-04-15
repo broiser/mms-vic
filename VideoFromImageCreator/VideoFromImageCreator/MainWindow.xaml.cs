@@ -21,20 +21,54 @@ namespace VideoFromImageCreator
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        List<Picture> pictureList = new List<Picture>();
+
         public MainWindow()
         {
-
             InitializeComponent();
+            this.pictureGrid.ItemsSource = this.pictureList;
+        }
 
-            
-        //    this.Visibility = System.Windows.Visibility.Visible;
-         
-            }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void addPicture(Picture picture)
         {
-            ImageToVideo im = new ImageToVideo();
+            this.pictureList.Add(picture);
+            this.pictureGrid.Items.Refresh();
+        }
 
+        private void AddFile_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void AddFolder_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void AddEffect_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void MoveUp_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void MoveDown_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void SetDuration_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void AddMusic_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
 
     }
