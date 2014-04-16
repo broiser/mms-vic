@@ -15,24 +15,23 @@ using System.Windows.Shapes;
 
 namespace VideoFromImageCreator
 {
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private const String RESULT = "result.wmv";
 
-        List<Picture> pictureList = new List<Picture>();
+        private List<Picture> pictures = new List<Picture>();
+        private Music music = new Music("");
+        private SlideConfiguration configuration = new SlideConfiguration(4);
 
         public MainWindow()
         {
             InitializeComponent();
-            this.pictureGrid.ItemsSource = this.pictureList;
+            InitializePictureGrid();
         }
 
-        private void addPicture(Picture picture)
+        private void InitializePictureGrid()
         {
-            this.pictureList.Add(picture);
-            this.pictureGrid.Items.Refresh();
+            pictureGrid.ItemsSource = pictures;
         }
 
         private void AddFile_Click(object sender, RoutedEventArgs e)
@@ -71,9 +70,21 @@ namespace VideoFromImageCreator
             //Voerst mal nur 1 Titel hinzufügen und dann je nach Möglichkeiten der Bibliothek eine Liste/DataGrid aufbauen und wie bei den Pictures machen...
         }
 
+        private void AddPicture(Picture picture)
+        {
+            this.pictures.Add(picture);
+            this.pictureGrid.Items.Refresh();
+        }
+
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            VideoBuilder builder = new VideoBuilder().SlideConfiguration(configuration).Music(music);
+            foreach (Picture picture in pictures)
+            {
+                builder = builder.AddPicture(picture);
+            }
+            builder = builder.Height(800).Width(800);
+            builder.Build(RESULT);
         }
 
     }
