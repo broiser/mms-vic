@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace VideoFromImageCreator
 {
-    class Music : Resource
+    class Music
     {
-        public Music(String path) :base(path)
+        public String Path { get; set; }
+
+        public Music(String path)
         {
-           
+            this.Path = path;
         }
+
+        
     }
 }

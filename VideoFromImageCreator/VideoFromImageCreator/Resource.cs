@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VideoBuilder
+namespace VideoFromImageCreator
 {
-    class Resource
+    abstract class Resource
     {
         public Resource(String path)
         {
