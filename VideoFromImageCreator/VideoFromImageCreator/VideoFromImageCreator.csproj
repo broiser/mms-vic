@@ -58,9 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Music.cs" />
-    <Compile Include="Picture.cs" />
-    <Compile Include="VideoBuilder.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="SlideConfiguration.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
