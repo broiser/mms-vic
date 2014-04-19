@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VideoFromImageCreator
 {
-    class Music : Resource
+    public class Music : Resource
     {
         public Music(String path) :base(path)
         {

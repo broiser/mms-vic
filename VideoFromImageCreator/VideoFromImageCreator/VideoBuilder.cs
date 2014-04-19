@@ -13,6 +13,7 @@ namespace VideoFromImageCreator
     {
         private ImageToVideo imageToVideo = new ImageToVideo();
 
+
         public VideoBuilder RegistraitionName(String name)
         {
             imageToVideo.RegistrationName = name;
@@ -42,6 +43,8 @@ namespace VideoFromImageCreator
         public VideoBuilder AddPicture(Picture picture){
             Slide slide = imageToVideo.AddImageFromFileName(picture.Path);
             slide.Duration = picture.Duration;
+            slide.InEffect = picture.InTransitionEffect;
+            slide.OutEffect = picture.OutTransitionEffect;
             return this;
         }
 

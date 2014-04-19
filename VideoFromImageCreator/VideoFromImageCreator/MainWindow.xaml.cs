@@ -18,6 +18,8 @@ namespace VideoFromImageCreator
     public partial class MainWindow : Window
     {
         private const String RESULT = "result.wmv";
+        private const int DEFAULT_DURATION = 5000;
+
 
         private List<Picture> pictures = new List<Picture>();
         private Music music = new Music("");
@@ -36,7 +38,9 @@ namespace VideoFromImageCreator
 
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            AddPictureWindow window = new AddPictureWindow(this);
+            window.Visibility = Visibility.Visible;
+            this.Visibility = Visibility.Hidden;
         }
 
         private void AddFolder_Click(object sender, RoutedEventArgs e)
@@ -70,7 +74,7 @@ namespace VideoFromImageCreator
             //Voerst mal nur 1 Titel hinzufügen und dann je nach Möglichkeiten der Bibliothek eine Liste/DataGrid aufbauen und wie bei den Pictures machen...
         }
 
-        private void AddPicture(Picture picture)
+        public void AddPicture(Picture picture)
         {
             this.pictures.Add(picture);
             this.pictureGrid.Items.Refresh();
@@ -78,7 +82,9 @@ namespace VideoFromImageCreator
 
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
-            VideoBuilder builder = new VideoBuilder().SlideConfiguration(configuration).Music(music);
+            
+            // VideoBuilder builder = new VideoBuilder().SlideConfiguration(configuration).Music(music);
+            VideoBuilder builder = new VideoBuilder();
             foreach (Picture picture in pictures)
             {
                 builder = builder.AddPicture(picture);

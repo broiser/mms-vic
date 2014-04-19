@@ -8,11 +8,13 @@ namespace VideoFromImageCreator
 {
     class SlideConfiguration
     {
+        public int Duration { get; set; }
+
         public SlideConfiguration(int duration)
         {
             this.Duration = duration;
         }
 
-        public int Duration { get; set; }
+      
     }
 }

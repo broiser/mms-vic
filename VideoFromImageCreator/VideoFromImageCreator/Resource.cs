@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace VideoFromImageCreator
 {
-    abstract class Resource
+    public abstract class Resource
     {
+
+        public String Path { get; set; }
+
         public Resource(String path)
         {
             this.Path = path;
         }
 
-        public String Path { get; set; }
     }
 }
