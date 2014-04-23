@@ -13,13 +13,15 @@ namespace VideoFromImageCreator
         public int Duration { get; set; }
         public TransitionEffectType InTransitionEffect {get; set; }
         public TransitionEffectType OutTransitionEffect {get; set; }
+        public VisualEffectType visualEffectType { get; set; }
 
-        public Picture(String path, int duration, TransitionEffectType inTransitionEffect, TransitionEffectType outTransitionEffect) : base(path)
+        public Picture(String path, int duration, TransitionEffectType inTransitionEffect, TransitionEffectType outTransitionEffect, VisualEffectType visualEffectType) : base(path)
         {
 
             this.Duration = duration;
             this.InTransitionEffect = inTransitionEffect;
             this.OutTransitionEffect = outTransitionEffect;
+            this.visualEffectType = visualEffectType;
         }
     }
 }

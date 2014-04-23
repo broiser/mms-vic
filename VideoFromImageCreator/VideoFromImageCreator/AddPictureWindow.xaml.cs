@@ -55,8 +55,9 @@ namespace VideoFromImageCreator
             //TODO extract correct Effect
             TransitionEffectType inEffect = TransitionEffectType.teNone;
             TransitionEffectType outEffect = TransitionEffectType.teNone;
+            VisualEffectType visualEffectType = VisualEffectType.veNone;
 
-            Picture picture = new Picture(path, dur, inEffect, outEffect);
+            Picture picture = new Picture(path, dur, inEffect, outEffect, visualEffectType);
             window.AddPicture(picture);
 
             window.Visibility = Visibility.Visible;
@@ -78,6 +79,11 @@ namespace VideoFromImageCreator
         private void setUpOutTransitionCombobox()
         {
             //TODO add all possible effects to the Comboboxes
+        }
+
+        private void setUpVisualEffectTypeCombobox()
+        {
+            //TODO add all visual effects to comboBox
         }
 
     }

@@ -26,13 +26,14 @@
         </DataGrid>
         <Button Content="Add File" HorizontalAlignment="Left" Margin="345,103,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddFile_Click"/>
         <Button Content="Add Folder" HorizontalAlignment="Left" Margin="345,130,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddFolder_Click"/>
-        <Button Content="Add Effect" HorizontalAlignment="Left" Margin="345,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddEffect_Click"/>
-        <Button Content="Move Up" HorizontalAlignment="Left" Margin="345,183,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="MoveUp_Click"/>
-        <Button Content="Move Down" HorizontalAlignment="Left" Margin="345,210,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="MoveDown_Click"/>
-        <Button Content="Set Duration" HorizontalAlignment="Left" Margin="345,237,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="SetDuration_Click"/>
+        <Button Content="Add TransitionEffect" HorizontalAlignment="Left" Margin="345,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddTransitionEffect_Click"/>
+        <Button Content="Move Up" HorizontalAlignment="Left" Margin="345,211,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="MoveUp_Click"/>
+        <Button Content="Move Down" HorizontalAlignment="Left" Margin="345,238,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="MoveDown_Click"/>
+        <Button Content="Set Duration" HorizontalAlignment="Left" Margin="345,265,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="SetDuration_Click"/>
         <Button Content="Generate Video" HorizontalAlignment="Left" Margin="260,459,0,0" Grid.Row="1" VerticalAlignment="Top" Width="145" Height="35" Click="GenerateVideo_Click"/>
-        <Button Content="Add Music" HorizontalAlignment="Left" Margin="345,264,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddMusic_Click"/>
+        <Button Content="Add Music" HorizontalAlignment="Left" Margin="345,292,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddMusic_Click"/>
         <Label Content="Pictures" HorizontalAlignment="Left" Margin="44,43,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.192"/>
+        <Button Content="Add VisualEffect" HorizontalAlignment="Left" Margin="345,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddVisualEffect_Click"/>
 
     </Grid>
 </Window>

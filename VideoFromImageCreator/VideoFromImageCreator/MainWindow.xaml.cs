@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,11 +30,23 @@ namespace VideoFromImageCreator
         {
             InitializeComponent();
             InitializePictureGrid();
+            SetUpComboBoxes();
         }
-
+        
         private void InitializePictureGrid()
         {
             pictureGrid.ItemsSource = pictures;
+        }
+
+        private void SetUpComboBoxes()
+        {
+            SetUpFileTypeCombobox();
+        }
+
+        private void SetUpFileTypeCombobox()
+        {
+            this.filetypeCombobox.Items.Add("AVI");
+            this.filetypeCombobox.Items.Add("WMV");
         }
 
         private void AddFile_Click(object sender, RoutedEventArgs e)
@@ -48,7 +61,12 @@ namespace VideoFromImageCreator
             //TODO
         }
 
-        private void AddEffect_Click(object sender, RoutedEventArgs e)
+        private void AddTransitionEffect_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
+
+        private void AddVisualEffect_Click(object sender, RoutedEventArgs e)
         {
             //TODO
         }
