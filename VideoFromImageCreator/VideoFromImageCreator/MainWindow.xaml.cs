@@ -64,25 +64,31 @@ namespace VideoFromImageCreator
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
-
-            string[] files = Directory.GetFiles(fbd.SelectedPath);
-            for (int i = 0; i < files.Length; i++)
+            string[] files;
+            try
             {
-                if (files[i].EndsWith(".jpg") || files[i].EndsWith(".jpeg") || files[i].EndsWith(".png") || files[i].EndsWith(".gif") || files[i].EndsWith(".bmp"))
+                files = Directory.GetFiles(fbd.SelectedPath);
+                for (int i = 0; i < files.Length; i++)
                 {
-                    string path = files[i];
-                    int dur = DEFAULT_DURATION;
-                    //TODO extract correct Effect
-                    TransitionEffectType inEffect = TransitionEffectType.teNone;
-                    TransitionEffectType outEffect = TransitionEffectType.teNone;
-                    VisualEffectType visualEffectType = VisualEffectType.veNone;
+                    if (files[i].EndsWith(".jpg") || files[i].EndsWith(".jpeg") || files[i].EndsWith(".png") || files[i].EndsWith(".gif") || files[i].EndsWith(".bmp"))
+                    {
+                        string path = files[i];
+                        int dur = DEFAULT_DURATION;
+                        //TODO extract correct Effect
+                        TransitionEffectType inEffect = TransitionEffectType.teNone;
+                        TransitionEffectType outEffect = TransitionEffectType.teNone;
+                        VisualEffectType visualEffectType = VisualEffectType.veNone;
 
-                    Picture p = new Picture(path, dur, inEffect, outEffect, visualEffectType);
-                    AddPicture(p);
-                    
+                        Picture p = new Picture(path, dur, inEffect, outEffect, visualEffectType);
+                        AddPicture(p);
+
+                    }
                 }
             }
-            
+            catch (Exception)
+            {
+                
+            }
         }
 
         private void AddTransitionEffect_Click(object sender, RoutedEventArgs e)
@@ -152,8 +158,18 @@ namespace VideoFromImageCreator
 
         private void AddMusic_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //Voerst mal nur 1 Titel hinzufügen und dann je nach Möglichkeiten der Bibliothek eine Liste/DataGrid aufbauen und wie bei den Pictures machen...
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".mp3";
+            dlg.Filter = "Music Files|*.mp3";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            DialogResult result = dlg.ShowDialog();
+
+                // Set Filename
+                this.music.Path = dlg.FileName;
+
         }
 
         public void AddPicture(Picture picture)
@@ -172,6 +188,7 @@ namespace VideoFromImageCreator
                 builder = builder.AddPicture(picture);
             }
             builder = builder.Height(800).Width(800);
+            builder.AddMusic(music);
             builder.Build(RESULT);
         }
 

@@ -20,12 +20,15 @@ namespace VideoFromImageCreator
     /// </summary>
     public partial class AddPictureWindow : Window
     {
+        private const int DEFAULT_DURATION = 5000;
         private MainWindow window;
         public AddPictureWindow(MainWindow window)
         {
             InitializeComponent();
             this.window = window;
             setUpComboboxes();
+            btnAdd.IsEnabled = false;
+            
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
@@ -45,23 +48,45 @@ namespace VideoFromImageCreator
             {
                 // Set Filename
                 this.picturePath.Text = dlg.FileName;
+                btnAdd.IsEnabled = true;
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             string path = this.picturePath.Text;
-            int dur = int.Parse(this.duration.Text);
-            //TODO extract correct Effect
-            TransitionEffectType inEffect = TransitionEffectType.teNone;
-            TransitionEffectType outEffect = TransitionEffectType.teNone;
-            VisualEffectType visualEffectType = VisualEffectType.veNone;
+            if (path != "")
+            {
+                int dur = 0;
+                try
+                {
+                    dur = int.Parse(this.duration.Text);
+                }
+                catch (Exception)
+                {
+                    dur = DEFAULT_DURATION;
+                }
 
-            Picture picture = new Picture(path, dur, inEffect, outEffect, visualEffectType);
-            window.AddPicture(picture);
 
-            window.Visibility = Visibility.Visible;
-            this.Visibility = Visibility.Collapsed;
+
+                //TODO extract correct Effect
+                TransitionEffectType inEffect = TransitionEffectType.teNone;
+                TransitionEffectType outEffect = TransitionEffectType.teNone;
+                VisualEffectType visualEffectType = VisualEffectType.veNone;
+
+                Picture picture = new Picture(path, dur, inEffect, outEffect, visualEffectType);
+                window.AddPicture(picture);
+
+                window.Visibility = Visibility.Visible;
+                this.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+
+                MessageBox.Show("Path doesn't accept empty!");
+                //PATH darf nicht null sein!! TODO
+
+            }
 
         }
 

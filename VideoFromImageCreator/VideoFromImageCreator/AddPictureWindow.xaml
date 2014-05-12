@@ -13,7 +13,8 @@
         <Label Content="InTransitionEffect" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top"/>
         <ComboBox Name="outTransitionEffectCB" HorizontalAlignment="Left" Margin="122,151,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="OutTransitionEffect" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top"/>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="307,238,0,0" VerticalAlignment="Top" Width="75" Click="Add_Click"/>
+        <Button Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="307,238,0,0" VerticalAlignment="Top" Width="75" Click="Add_Click" ToolTip="Saves the current picture"
+        ToolTipService.ShowOnDisabled="True"/>
 
     </Grid>
 </Window>
