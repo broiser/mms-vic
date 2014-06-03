@@ -21,11 +21,11 @@ namespace VideoFromImageCreator
     public partial class AddPictureWindow : Window
     {
         private const int DEFAULT_DURATION = 5000;
-        private MainWindow window;
-        public AddPictureWindow(MainWindow window)
+        public Picture Picture { get; set; }
+
+        public AddPictureWindow()
         {
             InitializeComponent();
-            this.window = window;
             setUpComboboxes();
             btnAdd.IsEnabled = false;
             
@@ -55,7 +55,7 @@ namespace VideoFromImageCreator
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             string path = this.picturePath.Text;
-            if (path != "")
+            if (IsValid(path))
             {
                 int dur = 0;
                 try
@@ -67,27 +67,26 @@ namespace VideoFromImageCreator
                     dur = DEFAULT_DURATION;
                 }
 
-
-
                 //TODO extract correct Effect
                 TransitionEffectType inEffect = TransitionEffectType.teNone;
                 TransitionEffectType outEffect = TransitionEffectType.teNone;
                 VisualEffectType visualEffectType = VisualEffectType.veNone;
 
-                Picture picture = new Picture(path, dur, inEffect, outEffect, visualEffectType);
-                window.AddPicture(picture);
-
-                window.Visibility = Visibility.Visible;
-                this.Visibility = Visibility.Collapsed;
+                Picture = new Picture(path, dur, inEffect, outEffect, visualEffectType);
+                DialogResult = true;
             }
-            else
+
+
+        }
+        private bool IsValid(string path) {
+            
+            if (!string.IsNullOrEmpty(path))
             {
-
-                MessageBox.Show("Path doesn't accept empty!");
-                //PATH darf nicht null sein!! TODO
-
+                return true;
             }
-
+            MessageBox.Show("Path doesn't accept empty!","Error");
+            //PATH darf nicht null sein!! TODO
+            return false;
         }
 
         private void setUpComboboxes()

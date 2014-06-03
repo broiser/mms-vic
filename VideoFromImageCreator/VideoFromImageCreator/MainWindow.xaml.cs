@@ -22,19 +22,25 @@ namespace VideoFromImageCreator
 {
     public partial class MainWindow : Window
     {
-        private const String RESULT = "result.wmv";
+        private const string RESULT = "result.wmv";
         private const int DEFAULT_DURATION = 5000;
 
 
         private List<Picture> pictures = new List<Picture>();
         private Music music = new Music("");
         private SlideConfiguration configuration = new SlideConfiguration(4);
+        private string productName = "Video From Image Creator";
+
+        public string FilePath { get; set; }
+        public string FileType { get; set; }
+        public string FileName { get; set; }
+
 
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowName.Title = productName;
             InitializePictureGrid();
-            SetUpComboBoxes();
         }
         
         private void InitializePictureGrid()
@@ -42,22 +48,14 @@ namespace VideoFromImageCreator
             pictureGrid.ItemsSource = pictures;
         }
 
-        private void SetUpComboBoxes()
-        {
-            SetUpFileTypeCombobox();
-        }
-
-        private void SetUpFileTypeCombobox()
-        {
-            this.filetypeCombobox.Items.Add("AVI");
-            this.filetypeCombobox.Items.Add("WMV");
-        }
-
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
-            AddPictureWindow window = new AddPictureWindow(this);
-            window.Visibility = Visibility.Visible;
-            this.Visibility = Visibility.Hidden;
+            AddPictureWindow addPictureWindow = new AddPictureWindow();
+            if (addPictureWindow.ShowDialog().Value)
+            {
+                AddPicture(addPictureWindow.Picture);
+            }
+
         }
 
         private void AddFolder_Click(object sender, RoutedEventArgs e)
@@ -192,6 +190,28 @@ namespace VideoFromImageCreator
             builder.Build(RESULT);
         }
 
+        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
 
+        private void MenuItemNew_Click(object sender, RoutedEventArgs e)
+        {
+            CreateProjectView CreateProjectView = new CreateProjectView();
+            var result = CreateProjectView.ShowDialog();
+            if (result.Value)
+            {
+                EnableComponets(result.Value);
+                FileType = CreateProjectView.FileType;
+                FileName = CreateProjectView.FileName;
+                FilePath = CreateProjectView.FilePath;
+                MainWindowName.Title = string.Format("Video From Image Creator - {0}", FileName);
+            }
+        }
+
+        private void EnableComponets(bool result)
+        {
+            GenerateButton.IsEnabled = result;
+        }
     }
 }
