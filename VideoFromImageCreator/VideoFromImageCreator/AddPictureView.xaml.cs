@@ -28,7 +28,13 @@ namespace VideoFromImageCreator
             InitializeComponent();
             setUpComboboxes();
             btnAdd.IsEnabled = false;
-            
+        }
+        public void Init(Picture picture)
+        {
+            Picture = picture;
+            picturePath.Text = Picture.Path;
+            duration.Text = Picture.Duration.ToString();
+
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
