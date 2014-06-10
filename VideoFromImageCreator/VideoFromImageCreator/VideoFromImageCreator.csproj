@@ -60,13 +60,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddPictureWindow.xaml.cs">
-      <DependentUpon>AddPictureWindow.xaml</DependentUpon>
+    <Compile Include="AddPictureView.xaml.cs">
+      <DependentUpon>AddPictureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateProjectView.xaml.cs">
+      <DependentUpon>CreateProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resource.cs" />
     <Compile Include="SlideConfiguration.cs" />
     <Compile Include="VideoBuilder.cs" />
-    <Page Include="AddPictureWindow.xaml">
+    <Page Include="AddPictureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateProjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,6 +138,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FileOpen.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
