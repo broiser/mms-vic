@@ -22,11 +22,12 @@ namespace VideoFromImageCreator
 {
     public partial class MainWindow : Window
     {
-        //private const string RESULT = "result.wmv";
+        private const string RESULT = "result.wmv";
         private const int DEFAULT_DURATION = 5000;
 
 
-        private List<Picture> pictures = new List<Picture>();
+        private List<Picture> previewPictures = new List<Picture>();
+        private List<Picture> generatePictures = new List<Picture>();
         private Music music = new Music("");
         private SlideConfiguration configuration = new SlideConfiguration(4);
         private string productName = "Video From Image Creator";
@@ -34,20 +35,21 @@ namespace VideoFromImageCreator
         public string FilePath { get; set; }
         public string FileType { get; set; }
         public string FileName { get; set; }
-
+        public Dictionary<int, string> dirValues { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             MainWindowName.Title = productName;
-            InitializePictureGrid();
+            dirValues = new Dictionary<int,string>();
+            //InitializePictureGrid();
+            InitSample();
         }
-
-        private void InitializePictureGrid()
+        private void InitSample()
         {
-            pictureGrid.ItemsSource = pictures;
+            var pic = new Picture("/Resources/SamplePicture.png", 5000, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone);
+            AddPicture(pic);
         }
-
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
             AddPictureWindow addPictureWindow = new AddPictureWindow();
@@ -56,6 +58,16 @@ namespace VideoFromImageCreator
                 AddPicture(addPictureWindow.Picture);
             }
 
+        }
+        private void EditPicture_Click(object sender, RoutedEventArgs e)
+        {
+            Picture picture = null;
+            AddPictureWindow addPictureWindow = new AddPictureWindow();
+            addPictureWindow.Picture = picture;
+            if (addPictureWindow.ShowDialog().Value)
+            {
+                EditPicture(picture);
+            }
         }
 
         private void AddFolder_Click(object sender, RoutedEventArgs e)
@@ -85,75 +97,72 @@ namespace VideoFromImageCreator
             }
             catch (Exception)
             {
-
+                
             }
         }
 
         private void AddTransitionEffect_Click(object sender, RoutedEventArgs e)
         {
-            Picture p = (Picture)pictureGrid.SelectedItem;
-            int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-
-            pictures.Remove(p);
-            //p.InTransitionEffect= AUSWAHL
-            pictures.Insert(position, p);
+        //    Picture p = (Picture)pictureGrid.SelectedItem;
+        //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
+            
+        //    pictures.Remove(p);
+        //    //p.InTransitionEffect= AUSWAHL
+        //    pictures.Insert(position, p);
         }
 
         private void AddVisualEffect_Click(object sender, RoutedEventArgs e)
         {
-            if (pictureGrid.Items.Count != 0)
-            {
-                Picture p = (Picture)pictureGrid.SelectedItem;
-                int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
+        //    Picture p = (Picture)pictureGrid.SelectedItem;
+        //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
 
-                pictures.Remove(p);
-                //p.visualEffectType= AUSWAHL
-                pictures.Insert(position, p);
-            }
+        //    pictures.Remove(p);
+        //    //p.visualEffectType= AUSWAHL
+        //    pictures.Insert(position, p);
         }
 
         private void MoveUp_Click(object sender, RoutedEventArgs e)
         {
-            Picture p = (Picture)pictureGrid.SelectedItem;
-            int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-            if (position - 1 >= 0)
-            {
-                pictures.Remove(p);
-                pictures.Insert(position - 1, p);
-                this.pictureGrid.Items.Refresh();
-            }
+        //    Picture p = (Picture)pictureGrid.SelectedItem;
+        //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
+        //    if(position-1 >=0)
+        //    {
+        //        pictures.Remove(p);
+        //        pictures.Insert(position - 1, p);
+        //        this.pictureGrid.Items.Refresh();
+        //    }
 
         }
 
         private void MoveDown_Click(object sender, RoutedEventArgs e)
         {
-            Picture p = (Picture)pictureGrid.SelectedItem;
-            int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-            if (position + 1 < pictures.Count)
-            {
-                pictures.Remove(p);
-                pictures.Insert(position + 1, p);
-                this.pictureGrid.Items.Refresh();
-            }
+        //    Picture p = (Picture)pictureGrid.SelectedItem;
+        //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
+        //    if(position+1 < pictures.Count)
+        //    {
+        //        pictures.Remove(p);
+        //        pictures.Insert(position + 1, p);
+        //        this.pictureGrid.Items.Refresh();
+        //    }
 
         }
 
         private void SetDuration_Click(object sender, RoutedEventArgs e)
         {
-            Picture p = (Picture)pictureGrid.SelectedItem;
+        //    Picture p = (Picture)pictureGrid.SelectedItem;
 
-            if (p == null)
-            {
-                List<Picture> helpPictures = new List<Picture>();
-
-                foreach (Picture pics in pictures)
-                {
-                    pics.Duration = 10;
-                    helpPictures.Add(pics);
-                }
-                pictures = helpPictures;
-                this.pictureGrid.Items.Refresh();
-            }
+        //    if(p == null)
+        //    {
+        //        List<Picture> helpPictures = new List<Picture>();
+                
+        //        foreach (Picture pics in pictures)
+        //        {
+        //            pics.Duration=10;
+        //            helpPictures.Add(pics);
+        //        }
+        //        pictures = helpPictures;
+        //        this.pictureGrid.Items.Refresh();
+        //    }
 
         }
 
@@ -168,32 +177,36 @@ namespace VideoFromImageCreator
             // Display OpenFileDialog by calling ShowDialog method
             DialogResult result = dlg.ShowDialog();
 
-            // Set Filename
-            this.music.Path = dlg.FileName;
+                // Set Filename
+                this.music.Path = dlg.FileName;
 
         }
 
         public void AddPicture(Picture picture)
         {
-            this.pictures.Add(picture);
-            this.pictureGrid.Items.Refresh();
+            this.previewPictures.Add(picture);
+            dirValues.Add(dirValues.Count+1, picture.Path);
+            ListBox.ItemsSource = dirValues;
+            ListBox.Items.Refresh();
+            //this.pictureGrid.Items.Refresh();
+        }
+        private void EditPicture(Picture picture)
+        {
+            dirValues.Select(i => i.Value == picture.Path);
         }
 
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
-
+            
             // VideoBuilder builder = new VideoBuilder().SlideConfiguration(configuration).Music(music);
             VideoBuilder builder = new VideoBuilder();
-            foreach (Picture picture in pictures)
+            foreach (Picture picture in generatePictures)
             {
                 builder = builder.AddPicture(picture);
             }
             builder = builder.Height(800).Width(800);
-            if (!music.Path.Equals(""))
-            {
-                builder.AddMusic(music);
-            }
-            builder.Build(FilePath + "\\" + FileName + FileType);
+            builder.AddMusic(music);
+            builder.Build(RESULT);
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
@@ -218,6 +231,21 @@ namespace VideoFromImageCreator
         private void EnableComponets(bool result)
         {
             GenerateButton.IsEnabled = result;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListBox_DragEnter(object sender, System.Windows.DragEventArgs e)
+        {
+            // GET ELEMENT AND ADD IN DragDropContainer
+        }
+
+        private void ListBox1_Drop(object sender, System.Windows.DragEventArgs e)
+        {
+            // DROP ELEMENT
         }
     }
 }
