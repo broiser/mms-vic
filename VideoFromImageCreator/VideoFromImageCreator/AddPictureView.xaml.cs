@@ -74,7 +74,7 @@ namespace VideoFromImageCreator
                 }
 
                 //TODO extract correct Effect
-                TransitionEffectType inEffect = TransitionEffectType.teNone;
+                TransitionEffectType inEffect = (TransitionEffectType)inTransitionEffectCB.SelectedValue;
                 TransitionEffectType outEffect = TransitionEffectType.teNone;
                 VisualEffectType visualEffectType = VisualEffectType.veNone;
 
@@ -103,7 +103,12 @@ namespace VideoFromImageCreator
 
         private void setUpInTransitionCombobox()
         {
-            //TODO add all possible effects to the Comboboxes
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teBoxIn);
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teBoxOut);
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teCoverDown);
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
         }
 
         private void setUpOutTransitionCombobox()

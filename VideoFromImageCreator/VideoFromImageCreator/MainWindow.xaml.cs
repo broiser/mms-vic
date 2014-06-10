@@ -22,15 +22,14 @@ namespace VideoFromImageCreator
 {
     public partial class MainWindow : Window
     {
-        private const string RESULT = "result.wmv";
         private const int DEFAULT_DURATION = 5000;
+        private string productName = "Video From Image Creator";
 
 
         private List<Picture> previewPictures = new List<Picture>();
         private List<Picture> generatePictures = new List<Picture>();
-        private Music music = new Music("");
-        private SlideConfiguration configuration = new SlideConfiguration(4);
-        private string productName = "Video From Image Creator";
+       
+        private Music music;
 
         public string FilePath { get; set; }
         public string FileType { get; set; }
@@ -42,14 +41,8 @@ namespace VideoFromImageCreator
             InitializeComponent();
             MainWindowName.Title = productName;
             dirValues = new Dictionary<int,string>();
-            //InitializePictureGrid();
-            InitSample();
         }
-        private void InitSample()
-        {
-            var pic = new Picture("/Resources/SamplePicture.png", 5000, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone);
-            AddPicture(pic);
-        }
+ 
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
             AddPictureWindow addPictureWindow = new AddPictureWindow();
@@ -74,30 +67,20 @@ namespace VideoFromImageCreator
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
-            string[] files;
+           
             try
             {
-                files = Directory.GetFiles(fbd.SelectedPath);
-                for (int i = 0; i < files.Length; i++)
+                string[] files = Directory.GetFiles(fbd.SelectedPath);
+                foreach(string file in files)
                 {
-                    if (files[i].EndsWith(".jpg") || files[i].EndsWith(".jpeg") || files[i].EndsWith(".png") || files[i].EndsWith(".gif") || files[i].EndsWith(".bmp"))
+                    if (FileUtils.IsImage(file))
                     {
-                        string path = files[i];
-                        int dur = DEFAULT_DURATION;
-                        //TODO extract correct Effect
-                        TransitionEffectType inEffect = TransitionEffectType.teNone;
-                        TransitionEffectType outEffect = TransitionEffectType.teNone;
-                        VisualEffectType visualEffectType = VisualEffectType.veNone;
-
-                        Picture p = new Picture(path, dur, inEffect, outEffect, visualEffectType);
-                        AddPicture(p);
-
+                        AddPicture(new Picture(file, DEFAULT_DURATION, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone));
                     }
                 }
             }
             catch (Exception)
             {
-                
             }
         }
 
@@ -108,16 +91,6 @@ namespace VideoFromImageCreator
             
         //    pictures.Remove(p);
         //    //p.InTransitionEffect= AUSWAHL
-        //    pictures.Insert(position, p);
-        }
-
-        private void AddVisualEffect_Click(object sender, RoutedEventArgs e)
-        {
-        //    Picture p = (Picture)pictureGrid.SelectedItem;
-        //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-
-        //    pictures.Remove(p);
-        //    //p.visualEffectType= AUSWAHL
         //    pictures.Insert(position, p);
         }
 
@@ -177,8 +150,8 @@ namespace VideoFromImageCreator
             // Display OpenFileDialog by calling ShowDialog method
             DialogResult result = dlg.ShowDialog();
 
-                // Set Filename
-                this.music.Path = dlg.FileName;
+            // Set Filename
+            this.music = new Music(dlg.FileName);
 
         }
 
@@ -197,8 +170,6 @@ namespace VideoFromImageCreator
 
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
-            
-            // VideoBuilder builder = new VideoBuilder().SlideConfiguration(configuration).Music(music);
             VideoBuilder builder = new VideoBuilder();
             foreach (Picture picture in generatePictures)
             {
@@ -206,7 +177,7 @@ namespace VideoFromImageCreator
             }
             builder = builder.Height(800).Width(800);
             builder.AddMusic(music);
-            builder.Build(RESULT);
+            builder.Build(FilePath +"\\" + FileName+"." + FileType);
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
@@ -220,7 +191,7 @@ namespace VideoFromImageCreator
             var result = CreateProjectView.ShowDialog();
             if (result.Value)
             {
-                EnableComponets(result.Value);
+                EnableComponents(result.Value);
                 FileType = CreateProjectView.FileType;
                 FileName = CreateProjectView.FileName;
                 FilePath = CreateProjectView.FilePath;
@@ -228,7 +199,7 @@ namespace VideoFromImageCreator
             }
         }
 
-        private void EnableComponets(bool result)
+        private void EnableComponents(bool result)
         {
             GenerateButton.IsEnabled = result;
         }

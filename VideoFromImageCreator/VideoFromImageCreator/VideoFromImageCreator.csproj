@@ -63,11 +63,11 @@
     <Compile Include="AddPictureView.xaml.cs">
       <DependentUpon>AddPictureView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileUtils.cs" />
     <Compile Include="CreateProjectView.xaml.cs">
       <DependentUpon>CreateProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resource.cs" />
-    <Compile Include="SlideConfiguration.cs" />
     <Compile Include="VideoBuilder.cs" />
     <Page Include="AddPictureView.xaml">
       <SubType>Designer</SubType>
