@@ -61,64 +61,65 @@ namespace VideoFromImageCreator
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             string path = this.picturePath.Text;
-            if (IsValid(path))
+            if (string.IsNullOrEmpty(path))
             {
-                int dur = 0;
-                try
-                {
-                    dur = int.Parse(this.duration.Text);
-                }
-                catch (Exception)
-                {
-                    dur = DEFAULT_DURATION;
-                }
-
-                //TODO extract correct Effect
+                MessageBox.Show("Path doesn't accept empty!", "Error");
+            }
+            else if (!FileUtils.IsImage(path))
+            {
+                MessageBox.Show("Please select an image!", "Error");
+            }
+            else{
+                int dur =  int.Parse(this.duration.Text);
                 TransitionEffectType inEffect = (TransitionEffectType)inTransitionEffectCB.SelectedValue;
-                TransitionEffectType outEffect = TransitionEffectType.teNone;
-                VisualEffectType visualEffectType = VisualEffectType.veNone;
+                TransitionEffectType outEffect = (TransitionEffectType)outTransitionEffectCB.SelectedValue;
+                VisualEffectType visualEffectType = (VisualEffectType)visualEffectCB.SelectedValue;
 
                 Picture = new Picture(path, dur, inEffect, outEffect, visualEffectType);
                 DialogResult = true;
             }
-
-
-        }
-        private bool IsValid(string path) {
-            
-            if (!string.IsNullOrEmpty(path))
-            {
-                return true;
-            }
-            MessageBox.Show("Path doesn't accept empty!","Error");
-            //PATH darf nicht null sein!! TODO
-            return false;
         }
 
         private void setUpComboboxes()
         {
             setUpInTransitionCombobox();
             setUpOutTransitionCombobox();
+            setUpVisualEffectTypeCombobox();
         }
 
         private void setUpInTransitionCombobox()
         {
             inTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
+            inTransitionEffectCB.Items.Add(TransitionEffectType.teRotate);
             inTransitionEffectCB.Items.Add(TransitionEffectType.teBoxIn);
-            inTransitionEffectCB.Items.Add(TransitionEffectType.teBoxOut);
             inTransitionEffectCB.Items.Add(TransitionEffectType.teCoverDown);
-
-            inTransitionEffectCB.SelectedValue = TransitionEffectType.teNone; 
+            inTransitionEffectCB.SelectedValue = TransitionEffectType.teNone;
         }
 
         private void setUpOutTransitionCombobox()
         {
-            //TODO add all possible effects to the Comboboxes
+            outTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
+            outTransitionEffectCB.Items.Add(TransitionEffectType.teRotate);
+            outTransitionEffectCB.Items.Add(TransitionEffectType.teBoxIn);
+            outTransitionEffectCB.Items.Add(TransitionEffectType.teCoverDown);
+            outTransitionEffectCB.SelectedValue = TransitionEffectType.teNone;
         }
 
         private void setUpVisualEffectTypeCombobox()
         {
-            //TODO add all visual effects to comboBox
+            visualEffectCB.Items.Add(VisualEffectType.veNone);
+            visualEffectCB.Items.Add(VisualEffectType.veGrayscale);
+            visualEffectCB.Items.Add(VisualEffectType.veSepia);
+            visualEffectCB.SelectedValue = VisualEffectType.veNone;
+        }
+
+        private void duration_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+
+            }
         }
 
     }

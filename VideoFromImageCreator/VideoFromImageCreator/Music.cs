@@ -9,8 +9,7 @@ namespace VideoFromImageCreator
     public class Music : Resource
     {
         public Music(String path) :base(path)
-        {
-           
+        {  
         }
     }
 }

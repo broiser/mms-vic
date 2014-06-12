@@ -23,8 +23,7 @@ namespace VideoFromImageCreator
     public partial class MainWindow : Window
     {
         private const int DEFAULT_DURATION = 5000;
-        private string productName = "Video From Image Creator";
-
+        private const string PRODUCT_NAME = "VIC";
 
         private List<Picture> previewPictures = new List<Picture>();
         private List<Picture> generatePictures = new List<Picture>();
@@ -40,7 +39,7 @@ namespace VideoFromImageCreator
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowName.Title = productName;
+            MainWindowName.Title = PRODUCT_NAME;
             dirValues = new Dictionary<int, string>();
             dirGenValues = new Dictionary<int, string>();
         }
@@ -94,7 +93,7 @@ namespace VideoFromImageCreator
                 {
                     if (FileUtils.IsImage(file))
                     {
-                        AddPicture(new Picture(file, DEFAULT_DURATION, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone));
+                        AddPicture(new Picture(file, 10, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone));
                     }
                 }
             }
@@ -209,7 +208,8 @@ namespace VideoFromImageCreator
                 builder = builder.AddPicture(picture);
             }
             builder = builder.Height(800).Width(800);
-            builder.AddMusic(music);
+            if (!(music == null || string.IsNullOrEmpty(music.Path))) { builder.AddMusic(music); }
+           
             builder.Build(FilePath + "\\" + FileName + "." + FileType);
         }
 

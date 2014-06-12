@@ -8,10 +8,18 @@ namespace VideoFromImageCreator
 {
    public class FileUtils
     {
+       private  static string[] IMAGE_TYPES =  { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
 
         public static bool IsImage(string file)
         {
-            return file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".png") || file.EndsWith(".gif") || file.EndsWith(".bmp");
+            foreach (string type in IMAGE_TYPES)
+            {
+                if (file.EndsWith(type))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

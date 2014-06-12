@@ -34,29 +34,21 @@ namespace VideoFromImageCreator
 
         private void SetComboBoxes()
         {
-            SetUpFileTypeCombobox();
+            filetypeCombobox.Items.Add(".avi");
+            filetypeCombobox.Items.Add(".wmv");
         }
-        private void SetUpFileTypeCombobox()
-        {
-            this.filetypeCombobox.Items.Add(".avi");
-            this.filetypeCombobox.Items.Add(".wmv");
-            
-        }
-
+       
         private void ButtonFileDialog_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowDialog();
             PathTextbox.Text = folderBrowserDialog.SelectedPath;
-
-            
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
             FileName = FileNameTextBox.Text;
@@ -68,6 +60,7 @@ namespace VideoFromImageCreator
                 this.Close();
             }
         }
+       
         private bool IsValid()
         {
             if (!string.IsNullOrEmpty(FileName)
