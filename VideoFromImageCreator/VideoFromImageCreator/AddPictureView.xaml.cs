@@ -107,8 +107,8 @@ namespace VideoFromImageCreator
             inTransitionEffectCB.Items.Add(TransitionEffectType.teBoxIn);
             inTransitionEffectCB.Items.Add(TransitionEffectType.teBoxOut);
             inTransitionEffectCB.Items.Add(TransitionEffectType.teCoverDown);
-            inTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
-            inTransitionEffectCB.Items.Add(TransitionEffectType.teNone);
+
+            inTransitionEffectCB.SelectedValue = TransitionEffectType.teNone; 
         }
 
         private void setUpOutTransitionCombobox()

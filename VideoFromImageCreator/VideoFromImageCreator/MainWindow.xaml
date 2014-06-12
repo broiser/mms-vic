@@ -3,7 +3,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:pic="clr-namespace:VideoFromImageCreator"
-        Title="VIC - Video From Image Creator" Height="566" Width="1000">
+        Title="VIC - Video From Image Creator" Height="566" Width="1000" Loaded="MainWindowName_Loaded">
     <Grid Margin="0,10,10,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500*"/>
@@ -23,7 +23,7 @@
         </Menu>
         <GroupBox Grid.Row="1" Margin="0,26,0,20">
             <ScrollViewer Margin="-2,0,-2,4">
-                <ListBox Name="ListBox" Height="Auto" Width="Auto" DragEnter="ListBox_DragEnter" >
+                <ListBox Name="ListBox" Height="Auto" Width="Auto" AllowDrop="True" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel >
@@ -65,8 +65,8 @@
         <Button Content="Move Down" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Width="120" Click="MoveDown_Click" Grid.Row="1" Grid.Column="1" Height="22"/>
         <Button Content="Set Duration" HorizontalAlignment="Left" Margin="10,137,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="SetDuration_Click" Grid.Column="1" Height="22"/>
         <Button Content="Add Music" HorizontalAlignment="Left" Margin="10,83,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="AddMusic_Click" Grid.Column="1" Height="22"/>
-         <ScrollViewer Margin="10,52,10,10" Grid.ColumnSpan="3" Grid.Row="2" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-            <ListBox x:Name="ListBox1" Height="Auto" Width="Auto" Drop="ListBox1_Drop" >
+         <ScrollViewer Margin="10,40,10,10" Grid.ColumnSpan="3" Grid.Row="2" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+            <ListBox x:Name="ListBox1" Height="Auto" Width="Auto" AllowDrop="True" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin=" 5" >
@@ -86,6 +86,13 @@
                                             </Style>
                                         </MenuItem.Style>
                                     </MenuItem>
+                                    <MenuItem Header="Remove">
+                                        <MenuItem.Style>
+                                            <Style TargetType="{x:Type MenuItem}">
+                                                <EventSetter Event="MenuItem.Click" Handler="RemovePicture_Click"/>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
                                 </ContextMenu>
                             </Setter.Value>
                         </Setter>
@@ -93,7 +100,7 @@
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" MaxWidth="400"/>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
