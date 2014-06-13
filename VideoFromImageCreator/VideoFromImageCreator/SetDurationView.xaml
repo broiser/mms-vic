@@ -1,0 +1,13 @@
+﻿<Window x:Class="VideoFromImageCreator.SetDurationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SetDurationView" Height="150" Width="300">
+    <Grid>
+        <Label Content="Choose a new Duration." HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.053,-0.385"/>
+        <Label Content="Duration" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Height="25"/>
+        <TextBox Name="duration" HorizontalAlignment="Left" Height="23" Margin="84,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="111"/>
+        <Button Name="btnAdd" Content="Set" HorizontalAlignment="Left" Margin="215,65,0,0" VerticalAlignment="Top" Width="67" Click="btnAdd_Click" ToolTip="Sets the new duration" ToolTipService.ShowOnDisabled="True" Height="26" RenderTransformOrigin="0.5,0.5">
+
+        </Button>
+    </Grid>
+</Window>

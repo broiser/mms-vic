@@ -143,28 +143,28 @@ namespace VideoFromImageCreator
         private void SetDuration_Click(object sender, RoutedEventArgs e)
         {
             int selectedIndex = ListBox1.SelectedIndex;
+            int newDuration = 0;
+            SetDurationView durationView = new SetDurationView();
 
-            if (selectedIndex != -1)
+            if (durationView.ShowDialog().Value)
             {
-                Picture p = generatePictures[selectedIndex];
-                p.
+                newDuration = durationView.newDuration;
             }
-
-            //    Picture p = (Picture)pictureGrid.SelectedItem;
-
-            //    if(p == null)
-            //    {
-            //        List<Picture> helpPictures = new List<Picture>();
-
-            //        foreach (Picture pics in pictures)
-            //        {
-            //            pics.Duration=10;
-            //            helpPictures.Add(pics);
-            //        }
-            //        pictures = helpPictures;
-            //        this.pictureGrid.Items.Refresh();
-            //    } 
-
+            if (newDuration > 0)
+            {
+                if (selectedIndex != -1)
+                {
+                    Picture p = generatePictures[selectedIndex];
+                    p.Duration = newDuration;
+                }
+                else
+                {
+                    foreach (Picture p in generatePictures)
+                    {
+                        p.Duration = newDuration;
+                    }
+                }
+            }
         }
 
         private void AddMusic_Click(object sender, RoutedEventArgs e)
