@@ -23,9 +23,11 @@ namespace VideoFromImageCreator
     public partial class MainWindow : Window
     {
         private const int DEFAULT_DURATION = 5000;
-        private const string PRODUCT_NAME = "VIC";
+        private const string PRODUCT_NAME = "Video from Image Creator";
 
+        
         private List<Picture> previewPictures = new List<Picture>();
+        //With these Pictures the Video will be generated (order must be the same as the order in the Dictionary!)
         private List<Picture> generatePictures = new List<Picture>();
 
         private Music music;
@@ -33,6 +35,8 @@ namespace VideoFromImageCreator
         public string FilePath { get; set; }
         public string FileType { get; set; }
         public string FileName { get; set; }
+
+        //These dictionarys are the Collections which are bound to the ListBoxes! (GUI-only; they have nothing to do with the generated video)
         public Dictionary<int, string> dirValues { get; set; }
         public IDictionary<int, string> dirGenValues { get; set; }
 
@@ -43,6 +47,7 @@ namespace VideoFromImageCreator
             dirValues = new Dictionary<int, string>();
             dirGenValues = new Dictionary<int, string>();
         }
+
         /// <summary>
         /// Register the drag&drop events
         /// </summary>
@@ -65,7 +70,7 @@ namespace VideoFromImageCreator
         }
         private void EditPicture_Click(object sender, RoutedEventArgs e)
         {
-            KeyValuePair<int, string> keyPair = new KeyValuePair<int,string>();
+            KeyValuePair<int, string> keyPair = new KeyValuePair<int, string>();
             if (ListBox.SelectedItem is KeyValuePair<int, string>)
             {
                 keyPair = ((KeyValuePair<int, string>)ListBox.SelectedItem);
@@ -93,7 +98,7 @@ namespace VideoFromImageCreator
                 {
                     if (FileUtils.IsImage(file))
                     {
-                        AddPicture(new Picture(file, 10, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone));
+                        AddPicture(new Picture(file, DEFAULT_DURATION, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone));
                     }
                 }
             }
@@ -112,34 +117,39 @@ namespace VideoFromImageCreator
             //    pictures.Insert(position, p);
         }
 
-        private void MoveUp_Click(object sender, RoutedEventArgs e)
+        private void MoveLeft_Click(object sender, RoutedEventArgs e)
         {
-            //    Picture p = (Picture)pictureGrid.SelectedItem;
-            //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-            //    if(position-1 >=0)
-            //    {
-            //        pictures.Remove(p);
-            //        pictures.Insert(position - 1, p);
-            //        this.pictureGrid.Items.Refresh();
-            //    }
 
+            int selectedIndex = ListBox1.SelectedIndex;
+            if (selectedIndex > 0)
+            {
+
+                switchKVPairs(selectedIndex, selectedIndex - 1);
+            }
         }
 
-        private void MoveDown_Click(object sender, RoutedEventArgs e)
+        private void MoveRight_Click(object sender, RoutedEventArgs e)
         {
-            //    Picture p = (Picture)pictureGrid.SelectedItem;
-            //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-            //    if(position+1 < pictures.Count)
-            //    {
-            //        pictures.Remove(p);
-            //        pictures.Insert(position + 1, p);
-            //        this.pictureGrid.Items.Refresh();
-            //    }
 
+            int selectedIndex = ListBox1.SelectedIndex;
+
+            if (selectedIndex + 1 < generatePictures.Count && selectedIndex != -1)
+            {
+                switchKVPairs(selectedIndex, selectedIndex + 1);
+            } 
         }
+
 
         private void SetDuration_Click(object sender, RoutedEventArgs e)
         {
+            int selectedIndex = ListBox1.SelectedIndex;
+
+            if (selectedIndex != -1)
+            {
+                Picture p = generatePictures[selectedIndex];
+                p.
+            }
+
             //    Picture p = (Picture)pictureGrid.SelectedItem;
 
             //    if(p == null)
@@ -153,7 +163,7 @@ namespace VideoFromImageCreator
             //        }
             //        pictures = helpPictures;
             //        this.pictureGrid.Items.Refresh();
-            //    }
+            //    } 
 
         }
 
@@ -202,15 +212,22 @@ namespace VideoFromImageCreator
 
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
-            VideoBuilder builder = new VideoBuilder();
-            foreach (Picture picture in generatePictures)
+            if (FilePath == null || FileType == null || FileName == null)
             {
-                builder = builder.AddPicture(picture);
+                setVideoMetadata();
+            } if (generatePictures.Count > 0)
+            {
+
+                VideoBuilder builder = new VideoBuilder();
+                foreach (Picture picture in generatePictures)
+                {
+                    builder = builder.AddPicture(picture);
+                }
+                builder = builder.Height(800).Width(800);
+                if (!(music == null || string.IsNullOrEmpty(music.Path))) { builder.AddMusic(music); }
+
+                builder.Build(FilePath + "\\" + FileName + "." + FileType);
             }
-            builder = builder.Height(800).Width(800);
-            if (!(music == null || string.IsNullOrEmpty(music.Path))) { builder.AddMusic(music); }
-           
-            builder.Build(FilePath + "\\" + FileName + "." + FileType);
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
@@ -220,22 +237,22 @@ namespace VideoFromImageCreator
 
         private void MenuItemNew_Click(object sender, RoutedEventArgs e)
         {
+            setVideoMetadata();
+        }
+
+        private void setVideoMetadata()
+        {
             CreateProjectView CreateProjectView = new CreateProjectView();
             var result = CreateProjectView.ShowDialog();
             if (result.Value)
             {
-                EnableComponents(result.Value);
                 FileType = CreateProjectView.FileType;
                 FileName = CreateProjectView.FileName;
                 FilePath = CreateProjectView.FilePath;
-                MainWindowName.Title = string.Format("Video From Image Creator - {0}", FileName);
+                MainWindowName.Title = string.Format(PRODUCT_NAME + "- {0}", FileName);
             }
         }
 
-        private void EnableComponents(bool result)
-        {
-            GenerateButton.IsEnabled = result;
-        }
         /// <summary>
         /// Drop Function for the Listbox1 (Box on the bottom)
         /// </summary>
@@ -279,5 +296,40 @@ namespace VideoFromImageCreator
                 DragDrop.DoDragDrop(ListBox, dataObject, System.Windows.DragDropEffects.Move);
             }
         }
+
+        /// <summary>
+        /// Switches the Entries in the directory
+        /// </summary>
+        /// <param name="indexA"></param>
+        /// <param name="indexB"></param>
+        private void switchKVPairs(int indexA, int indexB)
+        {
+            Picture picture = this.generatePictures[indexA];
+            this.generatePictures.RemoveAt(indexA);
+            this.generatePictures.Insert(indexB, picture);
+
+            this.ListBox1.SelectedIndex = indexB;
+
+            KeyValuePair<int, string> first = new KeyValuePair<int, string>();
+            if (ListBox1.Items[indexA] is KeyValuePair<int, string>)
+            {
+                first = ((KeyValuePair<int, string>)ListBox1.Items[indexA]);
+            }
+            KeyValuePair<int, string> second = new KeyValuePair<int, string>();
+            if (ListBox1.Items[indexB] is KeyValuePair<int, string>)
+            {
+                second = ((KeyValuePair<int, string>)ListBox1.Items[indexB]);
+            }
+            dirGenValues.Remove(first.Key);
+            dirGenValues.Remove(second.Key);
+
+
+            dirGenValues.Add(new KeyValuePair<int, string>(second.Key, first.Value));
+            dirGenValues.Add(new KeyValuePair<int, string>(first.Key, second.Value));
+            ListBox1.Items.Refresh();
+
+        }
+
+       
     }
 }

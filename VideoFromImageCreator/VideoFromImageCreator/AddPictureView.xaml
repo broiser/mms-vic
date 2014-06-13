@@ -8,7 +8,7 @@
         <TextBox Name="picturePath" HorizontalAlignment="Left" Height="23" Margin="140,43,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="289"/>
         <Label Content="Picture" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.026,2.346"/>
         <Label Content="Duration" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="duration" HorizontalAlignment="Left" Height="23" Margin="140,73,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="324" PreviewTextInput="duration_PreviewTextInput"/>
+        <TextBox Name="duration" HorizontalAlignment="Left" Height="23" Margin="140,73,0,0" TextWrapping="Wrap" Text="5000" VerticalAlignment="Top" Width="324" PreviewTextInput="duration_PreviewTextInput"/>
         <ComboBox Name="inTransitionEffectCB" HorizontalAlignment="Left" Margin="140,106,0,0" VerticalAlignment="Top" Width="324"/>
         <Label Content="InTransitionEffect" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top"/>
         <ComboBox Name="outTransitionEffectCB" HorizontalAlignment="Left" Margin="140,137,0,0" VerticalAlignment="Top" Width="324"/>
