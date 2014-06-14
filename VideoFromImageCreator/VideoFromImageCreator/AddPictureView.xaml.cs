@@ -27,13 +27,15 @@ namespace VideoFromImageCreator
         {
             InitializeComponent();
             setUpComboboxes();
-            btnAdd.IsEnabled = false;
         }
         public void Init(Picture picture)
         {
             Picture = picture;
             picturePath.Text = Picture.Path;
             duration.Text = Picture.Duration.ToString();
+            inTransitionEffectCB.SelectedValue = Picture.InTransitionEffect;
+            outTransitionEffectCB.SelectedValue = Picture.OutTransitionEffect;
+            visualEffectCB.SelectedValue = Picture.visualEffectType;
 
         }
 
@@ -54,7 +56,6 @@ namespace VideoFromImageCreator
             {
                 // Set Filename
                 this.picturePath.Text = dlg.FileName;
-                btnAdd.IsEnabled = true;
             }
         }
 

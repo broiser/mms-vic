@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VideoFromImageCreator.SetDurationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SetDurationView" Height="150" Width="300">
+        Title="SetDurationView" Height="150" Width="300" Icon="Resources/VIC-Logo_32.png">
     <Grid>
         <Label Content="Choose a new Duration." HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.053,-0.385"/>
         <Label Content="Duration" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Height="25"/>

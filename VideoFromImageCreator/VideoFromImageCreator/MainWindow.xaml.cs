@@ -32,22 +32,31 @@ namespace VideoFromImageCreator
 
         private Music music;
 
-        public string FilePath { get; set; }
-        public string FileType { get; set; }
-        public string FileName { get; set; }
-
         //These dictionarys are the Collections which are bound to the ListBoxes! (GUI-only; they have nothing to do with the generated video)
-        public Dictionary<int, string> dirValues { get; set; }
+        public IDictionary<int, string> dirValues { get; set; }
         public IDictionary<int, string> dirGenValues { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
+            SetComboBoxes();
             MainWindowName.Title = PRODUCT_NAME;
             dirValues = new Dictionary<int, string>();
             dirGenValues = new Dictionary<int, string>();
         }
 
+        private void SetComboBoxes()
+        {
+            FiletypeCombobox.Items.Add(".avi");
+            FiletypeCombobox.Items.Add(".wmv");
+        }
+
+        private void ButtonFileDialog_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowDialog();
+            PathTextbox.Text = folderBrowserDialog.SelectedPath;
+        }
         /// <summary>
         /// Register the drag&drop events
         /// </summary>
@@ -68,24 +77,36 @@ namespace VideoFromImageCreator
             }
 
         }
-        private void EditPicture_Click(object sender, RoutedEventArgs e)
-        {
-            KeyValuePair<int, string> keyPair = new KeyValuePair<int, string>();
-            if (ListBox.SelectedItem is KeyValuePair<int, string>)
-            {
-                keyPair = ((KeyValuePair<int, string>)ListBox.SelectedItem);
-            }
-            string val = keyPair.Value;
-            Picture picture = (Picture)generatePictures.Find(k => k.Path == val);
-            AddPictureWindow addPictureWindow = new AddPictureWindow();
-            addPictureWindow.Picture = picture;
-            if (addPictureWindow.ShowDialog().Value)
-            {
-                EditPicture(picture);
-            }
 
+        private void EditPicturePreviewBox_Click(object sender, RoutedEventArgs e)
+        {
+            EditPicture(ListBox, previewPictures);
+        }
+        private void EditPictureGenerateBox_Click(object sender, RoutedEventArgs e)
+        {
+            EditPicture(ListBox1, generatePictures);
         }
 
+        private void EditPicture(System.Windows.Controls.ListBox listbox,List<Picture> pics)
+        {
+            KeyValuePair<int, string> keyPair = new KeyValuePair<int, string>();
+            if (listbox.SelectedItem is KeyValuePair<int, string>)
+            {
+                keyPair = ((KeyValuePair<int, string>)listbox.SelectedItem);
+            }
+            string val = keyPair.Value;
+            Picture picture = (Picture)pics.FirstOrDefault(k => k.Path == val);
+            if (picture != null)
+            {
+                AddPictureWindow addPictureWindow = new AddPictureWindow();
+
+                addPictureWindow.Init(picture);
+                if (addPictureWindow.ShowDialog().Value)
+                {
+                    picture = addPictureWindow.Picture;
+                }
+            }
+        }
         private void AddFolder_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -191,28 +212,35 @@ namespace VideoFromImageCreator
             ListBox.Items.Refresh();
             //this.pictureGrid.Items.Refresh();
         }
-        private void EditPicture(Picture picture)
-        {
-            dirValues.Select(i => i.Value == picture.Path);
-        }
+
         private void RemovePicture_Click(object sender, RoutedEventArgs e)
         {
+            RemoveItemFromList(ListBox1, generatePictures, dirGenValues);
+        }
+
+        private void RemovePreviewPicture_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveItemFromList(ListBox, previewPictures, dirValues);
+        }
+
+        private void RemoveItemFromList(System.Windows.Controls.ListBox listbox, List<Picture> pics,IDictionary<int,string> dict)
+        {
             KeyValuePair<int, string> keyPair = new KeyValuePair<int, string>();
-            if (ListBox1.SelectedItem is KeyValuePair<int, string>)
+            if (listbox.SelectedItem is KeyValuePair<int, string>)
             {
-                keyPair = ((KeyValuePair<int, string>)ListBox1.SelectedItem);
+                keyPair = ((KeyValuePair<int, string>)listbox.SelectedItem);
             }
 
-            generatePictures.Remove(generatePictures.Find(p => p.Path == keyPair.Value));
+            pics.Remove(pics.Find(p => p.Path == keyPair.Value));
 
-            dirGenValues.Remove(keyPair);
-            ListBox1.ItemsSource = dirGenValues;
-            ListBox1.Items.Refresh();
+            dict.Remove(keyPair.Key);
+            listbox.ItemsSource = dict;
+            listbox.Items.Refresh();
         }
 
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
-            if (FilePath == null || FileType == null || FileName == null)
+            if (PathTextbox.Text == null || FiletypeCombobox.SelectedValue == null || FileNameTextBox.Text == null)
             {
                 setVideoMetadata();
             } if (generatePictures.Count > 0)
@@ -226,7 +254,7 @@ namespace VideoFromImageCreator
                 builder = builder.Height(800).Width(800);
                 if (!(music == null || string.IsNullOrEmpty(music.Path))) { builder.AddMusic(music); }
 
-                builder.Build(FilePath + "\\" + FileName + "." + FileType);
+                builder.Build(PathTextbox.Text + "\\" + FileNameTextBox.Text + "." + FiletypeCombobox.SelectedValue);
             }
         }
 
@@ -235,10 +263,6 @@ namespace VideoFromImageCreator
             Environment.Exit(0);
         }
 
-        private void MenuItemNew_Click(object sender, RoutedEventArgs e)
-        {
-            setVideoMetadata();
-        }
 
         private void setVideoMetadata()
         {
@@ -246,10 +270,10 @@ namespace VideoFromImageCreator
             var result = CreateProjectView.ShowDialog();
             if (result.Value)
             {
-                FileType = CreateProjectView.FileType;
-                FileName = CreateProjectView.FileName;
-                FilePath = CreateProjectView.FilePath;
-                MainWindowName.Title = string.Format(PRODUCT_NAME + "- {0}", FileName);
+                FiletypeCombobox.SelectedValue = CreateProjectView.FileType;
+                FileNameTextBox.Text = CreateProjectView.FileName;
+                PathTextbox.Text = CreateProjectView.FilePath;
+                MainWindowName.Title = string.Format(PRODUCT_NAME + "- {0}", FileNameTextBox.Text);
             }
         }
 
