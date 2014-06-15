@@ -95,7 +95,14 @@ namespace VideoFromImageCreator
                 keyPair = ((KeyValuePair<int, string>)listbox.SelectedItem);
             }
             string val = keyPair.Value;
-            Picture picture = (Picture)pics.FirstOrDefault(k => k.Path == val);
+            Picture picture = null; 
+            //= (Picture)pics.FirstOrDefault(k => k.Path == val);
+            foreach(Picture p in pics){
+                if(p.Path == val){
+                    picture = p;
+                    break;
+                }
+            }
             if (picture != null)
             {
                 AddPictureWindow addPictureWindow = new AddPictureWindow();
@@ -103,7 +110,9 @@ namespace VideoFromImageCreator
                 addPictureWindow.Init(picture);
                 if (addPictureWindow.ShowDialog().Value)
                 {
+                    pics.Remove(picture);
                     picture = addPictureWindow.Picture;
+                    pics.Insert(0, picture);
                 }
             }
         }
@@ -126,16 +135,6 @@ namespace VideoFromImageCreator
             catch (Exception)
             {
             }
-        }
-
-        private void AddTransitionEffect_Click(object sender, RoutedEventArgs e)
-        {
-            //    Picture p = (Picture)pictureGrid.SelectedItem;
-            //    int position = pictureGrid.Items.IndexOf(pictureGrid.SelectedCells[0].Item);
-
-            //    pictures.Remove(p);
-            //    //p.InTransitionEffect= AUSWAHL
-            //    pictures.Insert(position, p);
         }
 
         private void MoveLeft_Click(object sender, RoutedEventArgs e)
@@ -210,7 +209,6 @@ namespace VideoFromImageCreator
             dirValues.Add(dirValues.Count + 1, picture.Path);
             ListBox.ItemsSource = dirValues;
             ListBox.Items.Refresh();
-            //this.pictureGrid.Items.Refresh();
         }
 
         private void RemovePicture_Click(object sender, RoutedEventArgs e)
@@ -354,6 +352,5 @@ namespace VideoFromImageCreator
 
         }
 
-       
     }
 }

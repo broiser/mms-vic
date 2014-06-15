@@ -45,6 +45,7 @@ namespace VideoFromImageCreator
             slide.Duration = picture.Duration;
             slide.InEffect = picture.InTransitionEffect;
             slide.OutEffect = picture.OutTransitionEffect;
+            slide.VisualEffect = picture.visualEffectType;
             return this;
         }
 

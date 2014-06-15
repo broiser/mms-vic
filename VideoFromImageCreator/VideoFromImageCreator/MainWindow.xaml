@@ -66,7 +66,7 @@
         <Label Content="Pictures" HorizontalAlignment="Left" Margin="16,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.192" Height="26" Width="52" Grid.Row="1"/>
         <Button Content="Add File" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="120" Click="AddFile_Click" Grid.Column="1" Height="22" Grid.Row="1"/>
         <Button Content="Add Folder" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="120" Click="AddFolder_Click" Grid.Column="1" Height="22" Grid.Row="1"/>
-        <Button Content="Add TransitionEffect" HorizontalAlignment="Left" Margin="48,13,0,0" VerticalAlignment="Top" Width="120" Click="AddTransitionEffect_Click" Grid.Column="2" Height="22" Grid.Row="2"/>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="48,13,0,0" VerticalAlignment="Top" Width="120" Click="EditPictureGenerateBox_Click" Grid.Column="2" Height="22" Grid.Row="2"/>
         <Button Content="Move Left" Margin="178,13,199,0" VerticalAlignment="Top" Click="MoveLeft_Click" Grid.Row="2" Height="22"/>
         <Button Content="Move Right" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="MoveRight_Click" Grid.Row="2" Height="22" Margin="303,13,0,0"/>
         <Button Content="Set Duration" HorizontalAlignment="Left" Margin="430,13,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Click="SetDuration_Click" Height="22" Grid.ColumnSpan="2"/>
