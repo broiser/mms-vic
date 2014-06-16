@@ -66,7 +66,7 @@ namespace VideoFromImageCreator
             {
                 MessageBox.Show("Path doesn't accept empty!", "Error");
             }
-            else if (!FileUtils.IsImage(path))
+            else if (!FileUtils.IsImage(path.ToLower()))
             {
                 MessageBox.Show("Please select an image!", "Error");
             }

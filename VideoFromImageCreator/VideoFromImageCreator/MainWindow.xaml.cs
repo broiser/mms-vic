@@ -126,7 +126,8 @@ namespace VideoFromImageCreator
                 string[] files = Directory.GetFiles(fbd.SelectedPath);
                 foreach (string file in files)
                 {
-                    if (FileUtils.IsImage(file))
+                    
+                    if (FileUtils.IsImage(file.ToLower()))
                     {
                         AddPicture(new Picture(file, DEFAULT_DURATION, TransitionEffectType.teNone, TransitionEffectType.teNone, VisualEffectType.veNone));
                     }
