@@ -14,7 +14,8 @@ namespace VideoFromImageCreator
         {
             foreach (string type in IMAGE_TYPES)
             {
-                if (file.EndsWith(type))
+
+                if (file.ToLower().EndsWith(type))
                 {
                     return true;
                 }
