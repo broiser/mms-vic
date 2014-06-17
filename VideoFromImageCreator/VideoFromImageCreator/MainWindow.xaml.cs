@@ -25,7 +25,7 @@ namespace VideoFromImageCreator
         private const int DEFAULT_DURATION = 5000;
         private const string PRODUCT_NAME = "Video from Image Creator";
 
-        
+
         private List<Picture> previewPictures = new List<Picture>();
         //With these Pictures the Video will be generated (order must be the same as the order in the Dictionary!)
         private List<Picture> generatePictures = new List<Picture>();
@@ -51,12 +51,28 @@ namespace VideoFromImageCreator
             FiletypeCombobox.Items.Add(".wmv");
         }
 
-        private void ButtonFileDialog_Click(object sender, RoutedEventArgs e)
+        private void ProjectDialog_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowDialog();
             PathTextbox.Text = folderBrowserDialog.SelectedPath;
         }
+
+           private void MusicDialog_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".mp3";
+            dlg.Filter = "Music Files|*.mp3";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            DialogResult result = dlg.ShowDialog();
+
+            // Set Filename
+            this.music = new Music(dlg.FileName);
+            MusicTextbox.Text = dlg.FileName.Split('\\').Last();
+        }
+
+      
         /// <summary>
         /// Register the drag&drop events
         /// </summary>
@@ -87,7 +103,7 @@ namespace VideoFromImageCreator
             EditPicture(ListBox1, generatePictures);
         }
 
-        private void EditPicture(System.Windows.Controls.ListBox listbox,List<Picture> pics)
+        private void EditPicture(System.Windows.Controls.ListBox listbox, List<Picture> pics)
         {
             KeyValuePair<int, string> keyPair = new KeyValuePair<int, string>();
             if (listbox.SelectedItem is KeyValuePair<int, string>)
@@ -95,10 +111,12 @@ namespace VideoFromImageCreator
                 keyPair = ((KeyValuePair<int, string>)listbox.SelectedItem);
             }
             string val = keyPair.Value;
-            Picture picture = null; 
+            Picture picture = null;
             //= (Picture)pics.FirstOrDefault(k => k.Path == val);
-            foreach(Picture p in pics){
-                if(p.Path == val){
+            foreach (Picture p in pics)
+            {
+                if (p.Path == val)
+                {
                     picture = p;
                     break;
                 }
@@ -157,7 +175,7 @@ namespace VideoFromImageCreator
             if (selectedIndex + 1 < generatePictures.Count && selectedIndex != -1)
             {
                 switchKVPairs(selectedIndex, selectedIndex + 1);
-            } 
+            }
         }
 
 
@@ -188,22 +206,6 @@ namespace VideoFromImageCreator
             }
         }
 
-        private void AddMusic_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".mp3";
-            dlg.Filter = "Music Files|*.mp3";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            DialogResult result = dlg.ShowDialog();
-
-            // Set Filename
-            this.music = new Music(dlg.FileName);
-
-        }
-
         public void AddPicture(Picture picture)
         {
             this.previewPictures.Add(picture);
@@ -222,7 +224,7 @@ namespace VideoFromImageCreator
             RemoveItemFromList(ListBox, previewPictures, dirValues);
         }
 
-        private void RemoveItemFromList(System.Windows.Controls.ListBox listbox, List<Picture> pics,IDictionary<int,string> dict)
+        private void RemoveItemFromList(System.Windows.Controls.ListBox listbox, List<Picture> pics, IDictionary<int, string> dict)
         {
             KeyValuePair<int, string> keyPair = new KeyValuePair<int, string>();
             if (listbox.SelectedItem is KeyValuePair<int, string>)
@@ -244,14 +246,16 @@ namespace VideoFromImageCreator
                 setVideoMetadata();
             } if (generatePictures.Count > 0)
             {
-
                 VideoBuilder builder = new VideoBuilder();
                 foreach (Picture picture in generatePictures)
                 {
                     builder = builder.AddPicture(picture);
                 }
                 builder = builder.Height(800).Width(800);
-                if (!(music == null || string.IsNullOrEmpty(music.Path))) { builder.AddMusic(music); }
+                if (!(music == null || string.IsNullOrEmpty(music.Path)))
+                {
+                    builder.AddMusic(music);
+                }
 
                 builder.Build(PathTextbox.Text + "\\" + FileNameTextBox.Text + "." + FiletypeCombobox.SelectedValue);
             }
@@ -352,6 +356,5 @@ namespace VideoFromImageCreator
             ListBox1.Items.Refresh();
 
         }
-
     }
 }
