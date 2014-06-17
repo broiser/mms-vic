@@ -119,7 +119,6 @@ namespace VideoFromImageCreator
             if (!char.IsDigit(e.Text, e.Text.Length - 1))
             {
                 e.Handled = true;
-
             }
         }
 

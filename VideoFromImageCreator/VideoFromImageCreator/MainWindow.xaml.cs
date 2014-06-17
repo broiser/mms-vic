@@ -19,7 +19,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace VideoFromImageCreator
-{
+{   
+
     public partial class MainWindow : Window
     {
         private const int DEFAULT_DURATION = 5000;
@@ -27,7 +28,7 @@ namespace VideoFromImageCreator
 
 
         private List<Picture> previewPictures = new List<Picture>();
-        //With these Pictures the Video will be generated (order must be the same as the order in the Dictionary!)
+        //With these Pictures, the Video will be generated)
         private List<Picture> generatePictures = new List<Picture>();
 
         private Music music;
@@ -111,8 +112,9 @@ namespace VideoFromImageCreator
                 keyPair = ((KeyValuePair<int, string>)listbox.SelectedItem);
             }
             string val = keyPair.Value;
+
+            //Get Picture reference
             Picture picture = null;
-            //= (Picture)pics.FirstOrDefault(k => k.Path == val);
             foreach (Picture p in pics)
             {
                 if (p.Path == val)
@@ -134,6 +136,7 @@ namespace VideoFromImageCreator
                 }
             }
         }
+
         private void AddFolder_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -160,9 +163,9 @@ namespace VideoFromImageCreator
         {
 
             int selectedIndex = ListBox1.SelectedIndex;
+            //Switch is allowed, if the picture is not the first one (the most left picture) and when there is one selected (selectedInde == -1, if not)
             if (selectedIndex > 0)
             {
-
                 switchKVPairs(selectedIndex, selectedIndex - 1);
             }
         }
@@ -172,13 +175,18 @@ namespace VideoFromImageCreator
 
             int selectedIndex = ListBox1.SelectedIndex;
 
+            //Switch is only allowed, if the picture is not the last one (the most right picture) and when there is one selected
             if (selectedIndex + 1 < generatePictures.Count && selectedIndex != -1)
             {
                 switchKVPairs(selectedIndex, selectedIndex + 1);
             }
         }
 
-
+        /// <summary>
+        /// Sets the Duration of a Picture, if one is selected or of all Pictures is generateList, if nothing is selected 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetDuration_Click(object sender, RoutedEventArgs e)
         {
             int selectedIndex = ListBox1.SelectedIndex;
@@ -191,11 +199,13 @@ namespace VideoFromImageCreator
             }
             if (newDuration > 0)
             {
+                //Set Duration of selected Picture
                 if (selectedIndex != -1)
                 {
                     Picture p = generatePictures[selectedIndex];
                     p.Duration = newDuration;
                 }
+                    //Set Duration of all Pictures
                 else
                 {
                     foreach (Picture p in generatePictures)
@@ -241,6 +251,7 @@ namespace VideoFromImageCreator
 
         private void GenerateVideo_Click(object sender, RoutedEventArgs e)
         {
+            //When there is no new project created, the Window CreateProjectView will be opend 
             if (PathTextbox.Text == null || FiletypeCombobox.SelectedValue == null || FileNameTextBox.Text == null)
             {
                 setVideoMetadata();
@@ -256,7 +267,7 @@ namespace VideoFromImageCreator
                 {
                     builder.AddMusic(music);
                 }
-
+                //Sets videopath to the inserted value
                 builder.Build(PathTextbox.Text + "\\" + FileNameTextBox.Text + "." + FiletypeCombobox.SelectedValue);
             }
         }
@@ -266,7 +277,7 @@ namespace VideoFromImageCreator
             Environment.Exit(0);
         }
 
-
+        
         private void setVideoMetadata()
         {
             CreateProjectView CreateProjectView = new CreateProjectView();
@@ -325,7 +336,7 @@ namespace VideoFromImageCreator
         }
 
         /// <summary>
-        /// Switches the Entries in the directory
+        /// Switches the Entries in the dirGenValues-Directory
         /// </summary>
         /// <param name="indexA"></param>
         /// <param name="indexB"></param>
